@@ -1,3 +1,16 @@
+/* 전환 애니메이션
+1. 애니메이션 동작 전 className 만들기
+2. 애니메이션 동작 후 className 만들기
+3. transition 추가 */
+
+.start {
+  opacity: 0;
+}
+.end {
+  opacity: 1;
+  transition: opacity 2s;
+}
+
 .main-bg {
   height: 300px;
   /* 이미지는 url로 가져오기 */
