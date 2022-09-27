@@ -3,7 +3,8 @@ import styled from 'styled-components';
 import { useContext, useEffect } from 'react';
 import { useState } from 'react';
 import { Nav } from 'react-bootstrap';
-import { changeState } from './../../store';
+import { addItem } from './../../store';
+import { useDispatch } from 'react-redux';
 
 // import { Context1 } from './../../App.js';
 
@@ -30,13 +31,15 @@ function Detail(props) {
     return x.id === id;
   });
 
+  let dispatch = useDispatch();
+
   useEffect(() => {
     let a = setTimeout(() => {
       setDiv(false);
     }, 2000);
 
     if (isNaN(input) === true) {
-      alert('그러지 마세요');
+      // alert('그러지 마세요');
     }
     return () => {
       clearTimeout(a);
@@ -56,7 +59,10 @@ function Detail(props) {
       </button>
       <div className="row">
         <div className="col-md-6">
-          <img src={'https://codingapple1.github.io/shop/shoes1.jpg'} width="100%"></img>
+          <img
+            src={'https://codingapple1.github.io/shop/shoes1.jpg'}
+            width="100%"
+          ></img>
         </div>
         <div className="col-md-6">
           <input
@@ -66,8 +72,19 @@ function Detail(props) {
           ></input>
           <h4 className="pt-5">{props.shoes[id].title}</h4>
           <p>{props.shoes[id].content}</p>
-          <p>{props.shoes[id].price}</p>
-          <button className="btn btn-danger" onClick={() => {}}>
+          <p>{props.shoes[id].price}원</p>
+          <button
+            className="btn btn-danger"
+            onClick={() => {
+              dispatch(
+                addItem({
+                  id: 1,
+                  name: 'ㅇㅇ',
+                  count: 1,
+                })
+              );
+            }}
+          >
             주문하기
           </button>
         </div>
@@ -125,7 +142,11 @@ function TabContent({ tab }) {
       setFade('');
     };
   }, [tab]);
-  return <div className={'start ' + fade}>{[<div>내용0</div>, <div>내용1</div>, <div>내용2</div>][tab]}</div>;
+  return (
+    <div className={'start ' + fade}>
+      {[<div>내용0</div>, <div>내용1</div>, <div>내용2</div>][tab]}
+    </div>
+  );
 }
 
 export default Detail;

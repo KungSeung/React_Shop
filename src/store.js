@@ -23,18 +23,31 @@ let cart = createSlice({
     { id: 1, name: 'Grey Yordan', count: 1 },
   ],
   reducers: {
-    changeCount(state, i) {
-      if (state.id === i) {
-        state[i].count += 1;
-      } else if (state.id === i) {
-        state[i].count++;
+    addCount(state, action) {
+      // a는 반복문의 index와 같다
+      // let index = state.findIndex((a)=>{ return a.id === action.payload })
+      for (let i = 0; i < state.length; i++) {
+        if (action.payload === state[i].id) {
+          state[i].count++;
+          break;
+        }
       }
     },
-    changeState(state) {},
+    addItem(state, action) {
+      console.log(action.payload);
+      state.push(action.payload);
+    },
+    deleteItem(state, action) {
+      let index = state.findIndex((a) => {
+        return a.id === action.payload;
+      });
+      console.log(index);
+      state.splice(index, 1);
+    },
   },
 });
 
-export let { changeCount, changeState } = cart.actions;
+export let { addCount, addItem, deleteItem } = cart.actions;
 
 let stock = createSlice({
   name: 'stock',
